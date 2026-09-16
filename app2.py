@@ -1,5 +1,7 @@
-from deep_translator import GoogleTranslator
 import streamlit as st
+from googletrans import Translator
+
+translator = Translator()
 
 st.title("🌍 Language Translation Tool")
 
@@ -19,14 +21,18 @@ target = st.selectbox("Target", list(languages.keys()))
 if st.button("Translate"):
     if text.strip() == "":
         st.warning("Please enter text")
+    elif source == target:
+        st.info("Source and target are same")
     else:
         try:
-            translated = GoogleTranslator(
-                source=languages[source],
-                target=languages[target]
-            ).translate(text)
-
-            st.success(translated)
+            result = translator.translate(
+                text,
+                src=languages[source],
+                dest=languages[target]
+            )
+            st.success("Translation Successful")
+            st.text_area("Translated Text", result.text, height=150)
 
         except Exception as e:
-            st.error(f"Error: {str(e)}")
+            st.error("Error occurred")
+            st.write(str(e))
