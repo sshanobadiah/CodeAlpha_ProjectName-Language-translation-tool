@@ -3,7 +3,7 @@ from googletrans import Translator
 
 translator = Translator()
 
-st.title("🌍 Language Translation Tool")
+st.title("🌏 Language Translation Tool")
 
 text = st.text_area("Enter text")
 
